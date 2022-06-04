@@ -1,9 +1,4 @@
-server:
-  port: 8080
-  error:
-    include-stacktrace: always
-    include-message: always
-    include-exception: true
+
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -14,11 +9,19 @@ spring:
     activate:
       on-profile: dev
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: create-drop
   properties:
     hibernate:
       dialect: org.hibernate.dialect.MariaDB103Dialect
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+    include-message: always
+    include-exception: true
 
 logging:
   level:
