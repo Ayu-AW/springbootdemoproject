@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+    include-message: always
+    include-exception: true
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mariadb://worker.local:3306/springbootdemoproject?createDatabaseIfNotExist=true
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.MariaDB103Dialect
+
+logging:
+  level:
+    root: WARN
+    com.instructor.com.instructor.springbootdemoproject: TRACE
+    org:
+      hibernate:
+        SQL: info
+        type:
+          descriptor:
+            sql: trace
+---
+server:
+  port: 9000
+spring:
+  config:
+    activate:
+      on-profile: test
