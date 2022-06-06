@@ -6,6 +6,7 @@ import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Service
+@Service @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 @Transactional(rollbackOn = {DataAccessException.class})
 public class CourseService {
@@ -39,6 +40,7 @@ public class CourseService {
 
     public void saveOrUpdate(Course c){
         courseRepository.save(c);
+        log.info(String.format("Course ID Generated: %d Course Name: %s",c.getId(),c.getName()));
     }
 
     public void delete(Course c){

@@ -6,6 +6,7 @@ import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
@@ -15,7 +16,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Service
+@Service @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Transactional(rollbackOn = {DataAccessException.class})
 public class StudentService {
@@ -40,6 +41,7 @@ public class StudentService {
 
     public void saveOrUpdate(Student s){
         studentRepository.save(s);
+
     }
 
     public void delete(Student s){
@@ -49,6 +51,7 @@ public class StudentService {
     public void addCourse(String email, Course c) throws NoSuchElementException{
 
         Student s = studentRepository.findById(email).orElseThrow();
+        c = courseRepository.save(c);
         s.addCourse(c);
         studentRepository.save(s);
     }
@@ -60,6 +63,8 @@ public class StudentService {
     public List<Student> findAllSortedBy(Sort sort){
         return studentRepository.findAll(sort);
     }
+
+
 
 
 }

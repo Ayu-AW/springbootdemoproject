@@ -42,18 +42,32 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
         studentService.saveOrUpdate(new Student(JAFER_ID, "Jafer", PASSWORD));
         studentService.saveOrUpdate(new Student("kevin@gmail.com", "Kevin", PASSWORD));
         studentService.saveOrUpdate(new Student("nick@gmail.com", "Nick", PASSWORD));
+        studentService.saveOrUpdate(new Student("reema@gmail.com", "Reema", PASSWORD));
+        studentService.saveOrUpdate(new Student("roger@gmail.com", "roger", PASSWORD));
 
         courseService.saveOrUpdate(new Course("Java","Jafer"));
         courseService.saveOrUpdate(new Course("Springboot","Kasper"));
         courseService.saveOrUpdate(new Course("SQL","Phillip"));
+        courseService.saveOrUpdate(new Course("AWS","Leon"));
+        courseService.saveOrUpdate(new Course("JUnit","Charlie"));
 
         try {
-            studentService.addCourse(JAFER_ID, courseService.findById(3));
+            studentService.addCourse(JAFER_ID, courseService.findById(1));
             studentService.addCourse(JAFER_ID, courseService.findById(2));
+            studentService.addCourse(JAFER_ID, courseService.findById(3));
+            studentService.addCourse(KEVIN_ID, courseService.findById(1));
             studentService.addCourse(KEVIN_ID, courseService.findById(2));
+            studentService.addCourse(KEVIN_ID, courseService.findById(3));
+            studentService.addCourse(KEVIN_ID, courseService.findById(4));
+            studentService.addCourse(KEVIN_ID, courseService.findById(5));
+            studentService.addCourse("roger@gmail.com", courseService.findById(1));
+            studentService.addCourse("roger@gmail.com", courseService.findById(2));
         } catch (NoSuchElementException ex){
             log.error("Couldn't add course to student!");
             ex.printStackTrace();
+        } catch (RuntimeException e){
+            log.error("Couldn't add courses!");
+            e.printStackTrace();
         }
         log.warn("Results...");
         log.warn(studentService.findByEmail(JAFER_ID).getCourses().toString());
