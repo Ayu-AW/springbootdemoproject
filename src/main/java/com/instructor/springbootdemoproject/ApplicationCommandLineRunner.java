@@ -1,5 +1,6 @@
 package com.instructor.springbootdemoproject;
 
+import com.instructor.springbootdemoproject.data.StudentRepository;
 import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
 import com.instructor.springbootdemoproject.services.CourseService;
@@ -13,9 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Component @Slf4j
 @FieldDefaults(makeFinal = true,level = AccessLevel.PRIVATE)
@@ -23,14 +22,19 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
 
     StudentService studentService;
     CourseService courseService;
-    String PASSWORD = "password";
-    String JAFER_ID = "jafer@gmail.com";
-    String KEVIN_ID ="kevin@gmail.com";
+    static final  String PASSWORD = "password";
+    static final  String JAFERID = "jafer@gmail.com";
+    static final  String KEVINID ="kevin@gmail.com";
+    static final  String ROGERID = "roger@gmail.com";
     @Autowired
     public ApplicationCommandLineRunner(StudentService studentService, CourseService courseService) {
         this.studentService = studentService;
         this.courseService = courseService;
+
     }
+
+
+
 
     @PostConstruct
     public void postConstruct(){
@@ -39,11 +43,13 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        studentService.saveOrUpdate(new Student(JAFER_ID, "Jafer", PASSWORD));
-        studentService.saveOrUpdate(new Student("kevin@gmail.com", "Kevin", PASSWORD));
+
+
+        studentService.saveOrUpdate(new Student(JAFERID, "Jafer", PASSWORD));
+        studentService.saveOrUpdate(new Student(KEVINID, "Kevin", PASSWORD));
         studentService.saveOrUpdate(new Student("nick@gmail.com", "Nick", PASSWORD));
         studentService.saveOrUpdate(new Student("reema@gmail.com", "Reema", PASSWORD));
-        studentService.saveOrUpdate(new Student("roger@gmail.com", "roger", PASSWORD));
+        studentService.saveOrUpdate(new Student(ROGERID, "roger", PASSWORD));
 
         courseService.saveOrUpdate(new Course("Java","Jafer"));
         courseService.saveOrUpdate(new Course("Springboot","Kasper"));
@@ -52,16 +58,16 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
         courseService.saveOrUpdate(new Course("JUnit","Charlie"));
 
         try {
-            studentService.addCourse(JAFER_ID, courseService.findById(1));
-            studentService.addCourse(JAFER_ID, courseService.findById(2));
-            studentService.addCourse(JAFER_ID, courseService.findById(3));
-            studentService.addCourse(KEVIN_ID, courseService.findById(1));
-            studentService.addCourse(KEVIN_ID, courseService.findById(2));
-            studentService.addCourse(KEVIN_ID, courseService.findById(3));
-            studentService.addCourse(KEVIN_ID, courseService.findById(4));
-            studentService.addCourse(KEVIN_ID, courseService.findById(5));
-            studentService.addCourse("roger@gmail.com", courseService.findById(1));
-            studentService.addCourse("roger@gmail.com", courseService.findById(2));
+            studentService.addCourse(JAFERID, courseService.findById(1));
+            studentService.addCourse(JAFERID, courseService.findById(2));
+            studentService.addCourse(JAFERID, courseService.findById(3));
+            studentService.addCourse(KEVINID, courseService.findById(1));
+            studentService.addCourse(KEVINID, courseService.findById(2));
+            studentService.addCourse(KEVINID, courseService.findById(3));
+            studentService.addCourse(KEVINID, courseService.findById(4));
+            studentService.addCourse(KEVINID, courseService.findById(5));
+            studentService.addCourse(ROGERID, courseService.findById(1));
+            studentService.addCourse(ROGERID, courseService.findById(2));
         } catch (NoSuchElementException ex){
             log.error("Couldn't add course to student!");
             ex.printStackTrace();
@@ -70,9 +76,9 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
             e.printStackTrace();
         }
         log.warn("Results...");
-        log.warn(studentService.findByEmail(JAFER_ID).getCourses().toString());
-        log.warn(studentService.findByEmail(KEVIN_ID).getCourses().toString());
-        log.warn(courseService.getStudentCourses(JAFER_ID).toString());
+        log.warn(studentService.findByEmail(JAFERID).getCourses().toString());
+        log.warn(studentService.findByEmail(KEVINID).getCourses().toString());
+        log.warn(courseService.getStudentCourses(JAFERID).toString());
         log.warn(studentService.findAllSortedBy(Sort.by(Sort.Direction.DESC, "name")).toString());
     }
 }

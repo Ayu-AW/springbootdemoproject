@@ -17,8 +17,13 @@ Your task is to create a basic School Management System where students can regis
 
 ### Work-Flow:
 
-Only students with the right credentials can log in. Otherwise, a message is displayed stating: “Wrong Credentials”. Valid students are able to see the courses they are registered for. Valid students are able to register for any course in the system as long as they are not already registered.
-
+Website with links to each service
+- homepage
+- create/modify student
+- create/modify course
+- view students
+- find student by email
+- view courses
 
 starter dependencies:
 - Spring web
@@ -59,17 +64,40 @@ Models requires:
 ---
 #### Requirement 2 - Data Access Object  (dao) interfaces:
 
-##### StudentI:
-| Abstract method         | Return type    | Parameters                    | Description                                                                                                     | 
-|-------------------------|----------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| getStudentByEmail       | Student        | String email                  | return student if exists, also handle commit,rollback, and exceptions                                           |
-| validateStudent         | boolean        | String email, String password | match email and password to database to gain access to courses, also handle commit,rollback, and exceptions     |
-| registerStudentToCourse | void           | String email, int courseId    | register a course to a student (collection to prevent duplication), also handle commit,rollback, and exceptions |
-| getStudentCourses       | List\<Course>  | String email                  | get all the student courses list (use native query), also handle commit,rollback, and exceptions                | 
+##### StudentRepository:
+##### CourseRepository:
+| Abstract method         | Return type   | Parameters                    | Description                                                                                                     | 
+|-------------------------|---------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| findStudentCourses      | List\<Course> | String email                  | return student courses                                                                                          |
 
 ---
+
+
 #### Requirement 3 - Service layer:
 implement interfaces:
-- StudentService
-- CourseService
+- StudentService: implement StudentRepository required methods.
+- CourseService: implement CourseRepository required methods.
+
 ---
+
+#### Requirement 4 - Controllers
+##### HomeController
+  - general endpoints
+##### StudentController
+  - mapping for services
+##### CourseController
+  - mapping for services
+
+---
+
+#### Requirement 5 - View using Thymeleaf
+
+- build a template using thymeleaf fragments
+
+#### Requirement 6 - Spring Security
+- implement spring security
+- hide/show services using thymeleaf
+
+#### Requirement 7 - Testing
+- use mock database H2 to test data
+- AssertJ tests

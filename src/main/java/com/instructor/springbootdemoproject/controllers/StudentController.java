@@ -27,7 +27,7 @@ public class StudentController {
 
 
 
-    @GetMapping
+    @GetMapping("/students")
     public String getAllStudents(Model model){
         model.addAttribute("students",studentService.findAll());
         return "students";
