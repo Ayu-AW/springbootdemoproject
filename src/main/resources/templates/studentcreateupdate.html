@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<!-- Head-->
+<div th:replace="fragrams/header :: header"/>
+<body>
+<!-- Responsive navbar-->
+<div th:replace="fragrams/nav :: nav"/>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-5 vh-100">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center my-5">
+                    <h1 class="display-4 fw-bolder text-white mb-2">Student Create/Modify</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-5">
+                <p th:if="${student.email ne null}" class="text-warning">Persisted!</p>
+                <form th:action="@{/students/saveupdatestudent}"  autocomplete="off" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" name="email" class="form-control" placeholder="Student's Email" th:field="*{student.email}" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Student's Name" th:field="*{student.name}" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="password" class="form-control" placeholder="Student's Password"
+                               aria-label="Student's Password" aria-describedby="button-addon2" th:field="*{student.password}">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Submit</button>
+                    </div>
+
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</header>
+
+
+<!-- Footer-->
+<div th:replace="fragrams/footer :: footer"/>
+
+
+</body>
+</html>

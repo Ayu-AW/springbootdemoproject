@@ -1,5 +1,6 @@
 package com.instructor.springbootdemoproject.controllers;
 
+import com.instructor.springbootdemoproject.models.Student;
 import com.instructor.springbootdemoproject.services.CourseService;
 import com.instructor.springbootdemoproject.services.StudentService;
 import lombok.AccessLevel;
@@ -8,14 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequestMapping(value = "students")
 public class StudentController {
     StudentService studentService;
     CourseService courseService;
@@ -25,12 +25,9 @@ public class StudentController {
         this.courseService = courseService;
     }
 
-    @GetMapping(value = {"/", "index"})
-    public String homePage(){
-        return "index";
-    }
 
-    @GetMapping(value = {"students"})
+
+    @GetMapping
     public String getAllStudents(Model model){
         model.addAttribute("students",studentService.findAll());
         return "students";
@@ -44,8 +41,26 @@ public class StudentController {
         } catch (RuntimeException ex){
             ex.printStackTrace();
             redirectAttributes.addFlashAttribute("user_not_found",String.format("Username: %s not found!",email));
-            return new RedirectView("students");
+            return new RedirectView("/students");
         }
-        return new RedirectView("students");
+        return new RedirectView("/students");
     }
+
+
+
+    @GetMapping(value="/studentform")
+    public String studentForm(Model model){
+        model.addAttribute("student",new Student());
+        return "studentcreateupdate";
+    }
+
+    @PostMapping("/saveupdatestudent")
+    public String saveUpdateStudent(RedirectAttributes model, @ModelAttribute("student") Student student){
+        log.warn("Model student: "+ student);
+        studentService.saveOrUpdate(student);
+        model.addFlashAttribute("student",studentService.findByEmail(student.getEmail()));
+        return "studentcreateupdate";
+    }
+
+
 }

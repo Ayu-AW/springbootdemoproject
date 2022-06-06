@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<!-- Head-->
+<div th:replace="fragrams/header :: header"/>
+<body>
+<!-- Responsive navbar-->
+<div th:replace="fragrams/nav :: nav"/>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-5 vh-100">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center my-5">
+                    <h1 class="display-4 fw-bolder text-white mb-2">Course Create/Modify</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-5">
+                <p th:if="${course.name ne null}" class="text-warning">Persisted!</p>
+                <form th:action="@{/courses/saveupdatecourse}"  autocomplete="off" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" name="id" class="form-control" placeholder="Course ID" th:field="*{course.id}" readonly/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Course Name" th:field="*{course.name}" />
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="text" name="instructor" class="form-control" placeholder="Instructor's Name"
+                               aria-label="Instructor's Name" aria-describedby="button-addon2" th:field="*{course.instructor}">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</header>
+
+
+<!-- Footer-->
+<div th:replace="fragrams/footer :: footer"/>
+
+
+</body>
+</html>
