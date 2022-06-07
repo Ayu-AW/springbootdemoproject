@@ -75,10 +75,7 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
             log.error("Couldn't add courses!");
             e.printStackTrace();
         }
-        log.warn("Results...");
-        log.warn(studentService.findByEmail(JAFERID).getCourses().toString());
-        log.warn(studentService.findByEmail(KEVINID).getCourses().toString());
-        log.warn(courseService.getStudentCourses(JAFERID).toString());
+        log.info("Find All Students Sorted By Name Desc");
         log.warn(studentService.findAllSortedBy(Sort.by(Sort.Direction.DESC, "name")).toString());
     }
 }

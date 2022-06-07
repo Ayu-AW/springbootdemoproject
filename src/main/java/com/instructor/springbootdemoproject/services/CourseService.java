@@ -50,4 +50,8 @@ public class CourseService {
     public List<Course> getStudentCourses(String email){
         return courseRepository.findStudentCourses(email);
     }
+
+    public Course findCourseByName(String name){
+        return courseRepository.findByName(name).orElseThrow();
+    }
 }

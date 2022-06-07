@@ -1,5 +1,6 @@
 package com.instructor.springbootdemoproject.controllers;
 
+import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
 import com.instructor.springbootdemoproject.services.CourseService;
 import com.instructor.springbootdemoproject.services.StudentService;
@@ -12,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -27,7 +31,7 @@ public class StudentController {
 
 
 
-    @GetMapping("/students")
+    @GetMapping
     public String getAllStudents(Model model){
         model.addAttribute("students",studentService.findAll());
         return "students";
@@ -60,6 +64,17 @@ public class StudentController {
         studentService.saveOrUpdate(student);
         model.addFlashAttribute("student",studentService.findByEmail(student.getEmail()));
         return "studentcreateupdate";
+    }
+
+    @GetMapping("/registertocourse/{email}")
+    public String registerStudentToCourse(@PathVariable String email, Model model){
+        model.addAttribute("student",studentService.findByEmail(email));
+        // courses available to register
+        Set<Course> studentNotRegisteredToThisCourses = new HashSet<>(courseService.findAll());
+        studentNotRegisteredToThisCourses.removeAll(courseService.getStudentCourses(email));
+        log.info(studentNotRegisteredToThisCourses.toString());
+        model.addAttribute("studentNotRegisteredToThisCourses",studentNotRegisteredToThisCourses);
+        return "registertocourse";
     }
 
 

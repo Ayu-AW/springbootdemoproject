@@ -10,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller @Slf4j
@@ -48,5 +45,30 @@ public class CourseController {
         courseService.saveOrUpdate(course);
         model.addFlashAttribute("course",courseService.findById(course.getId()));
         return "coursecreateupdate";
+    }
+
+    @PostMapping("{email}/savecoursestouser")
+    public String saveCourseToStudent(@RequestParam("courses-choice") String name, @PathVariable("email") String email, RedirectAttributes model){
+        log.warn("model email: "+ email);
+        // check course is on the list
+        boolean isCourseNameValid = courseService.findAll().stream().anyMatch(course -> course.getName().equals(name));
+        if(isCourseNameValid){
+            try {
+                studentService.addCourse(email, courseService.findCourseByName(name));
+                model.addFlashAttribute("message", String.format("Persist %s to %s", name,email));
+                log.info(String.format("Persist %s to %s", name,email));
+            }catch(RuntimeException ex){
+                model.addFlashAttribute("message", String.format("Couldn't persist %s to %s", name,email));
+                log.error(String.format("Couldn't persist %s to %s", name,email));
+                ex.printStackTrace();
+            }
+        } else {
+            model.addFlashAttribute("message", String.format("Couldn't persist %s to %s because course don't exist", name,email));
+            log.warn(String.format("Couldn't persist %s to %s because course doesn't exist", name,email));
+        }
+        log.info("courses-choice:" + name);
+        log.info("isCourseNameValid: "+ isCourseNameValid);
+
+        return "redirect:/students";
     }
 }

@@ -32,7 +32,7 @@ public class Student {
     String password;
 
 
-    @ToString.Exclude
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(name = "student_courses",
             joinColumns = @JoinColumn(name = "student_email"),
