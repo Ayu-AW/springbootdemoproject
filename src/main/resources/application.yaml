@@ -28,13 +28,13 @@ server:
 logging:
   level:
     root: INFO
-    com.instructor.springbootdemoproject: TRACE
+    com.instructor.springbootdemoproject: INFO
     org:
       hibernate:
-        SQL: INFO
+        SQL: TRACE
         type:
           descriptor:
-            sql: INFO
+            sql: TRACE
 management:
   endpoints:
     web:

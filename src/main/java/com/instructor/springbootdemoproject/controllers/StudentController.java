@@ -1,5 +1,6 @@
 package com.instructor.springbootdemoproject.controllers;
 
+import com.instructor.springbootdemoproject.data.StudentRepository;
 import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
 import com.instructor.springbootdemoproject.services.CourseService;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class StudentController {
     StudentService studentService;
     CourseService courseService;
+
     @Autowired
     public StudentController(StudentService studentService, CourseService courseService) {
         this.studentService = studentService;
@@ -33,7 +35,10 @@ public class StudentController {
 
     @GetMapping
     public String getAllStudents(Model model){
+
+
         model.addAttribute("students",studentService.findAll());
+
         return "students";
     }
 

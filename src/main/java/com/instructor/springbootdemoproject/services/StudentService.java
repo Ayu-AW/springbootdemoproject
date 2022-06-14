@@ -8,8 +8,10 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
+import org.springframework.orm.hibernate5.HibernateJdbcException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,7 +33,9 @@ public class StudentService {
     }
 
     public List<Student> findAll(){
+
         return studentRepository.findAll();
+
     }
 
     @Transactional(rollbackOn = {NoSuchElementException.class})
@@ -40,6 +44,7 @@ public class StudentService {
     }
 
     public void saveOrUpdate(Student s){
+        log.info(s.toString());
         studentRepository.save(s);
 
     }

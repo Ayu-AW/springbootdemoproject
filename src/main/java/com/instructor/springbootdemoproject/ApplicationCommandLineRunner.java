@@ -1,5 +1,6 @@
 package com.instructor.springbootdemoproject;
 
+import com.instructor.springbootdemoproject.data.CourseRepository;
 import com.instructor.springbootdemoproject.data.StudentRepository;
 import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
@@ -22,16 +23,21 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
 
     StudentService studentService;
     CourseService courseService;
+
+    CourseRepository courseRepository;
     static final  String PASSWORD = "password";
     static final  String JAFERID = "jafer@gmail.com";
     static final  String KEVINID ="kevin@gmail.com";
     static final  String ROGERID = "roger@gmail.com";
     @Autowired
-    public ApplicationCommandLineRunner(StudentService studentService, CourseService courseService) {
+    public ApplicationCommandLineRunner(StudentService studentService, CourseService courseService, CourseRepository courseRepository) {
         this.studentService = studentService;
         this.courseService = courseService;
-
+        this.courseRepository = courseRepository;
     }
+
+
+
 
 
 
@@ -77,5 +83,8 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
         }
         log.info("Find All Students Sorted By Name Desc");
         log.warn(studentService.findAllSortedBy(Sort.by(Sort.Direction.DESC, "name")).toString());
+
+        log.warn("findAllCourseGreaterThanId: " + courseRepository.findAllCourseGreaterThanId(3).toString());
+
     }
 }
