@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,9 +35,9 @@ public class StudentController {
 
 
     @GetMapping
-    public String getAllStudents(Model model){
+    public String getAllStudents(Model model, Principal principal){
 
-
+        log.info(principal.getName());
         model.addAttribute("students",studentService.findAll());
 
         return "students";

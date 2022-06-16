@@ -3,6 +3,7 @@ package com.instructor.springbootdemoproject.models;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -15,8 +16,10 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
-@Getter @Setter @Slf4j @ToString
+
+@Getter
+@Setter
+@Slf4j @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "student")
 @Entity
@@ -29,15 +32,25 @@ public class Student {
     @NonNull
     String name;
     @NonNull
+    @Setter(AccessLevel.NONE)
     String password;
 
-
+    public Student(@NonNull String email, @NonNull String name, @NonNull String password) {
+        this.email = email;
+        this.name = name;
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(name = "student_courses",
             joinColumns = @JoinColumn(name = "student_email"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     Set<Course> courses = new LinkedHashSet<>();
+
+
+    public void setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
 
     // Helper Method
     public void addCourse(Course course){

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <!-- Head-->
+    <div th:replace="fragrams/header :: header" />
+    <body>
+    <!-- Responsive navbar-->
+    <div th:replace="fragrams/nav :: nav" />
+    <!-- Header-->
+        <header class="bg-dark py-5">
+
+            <div class="container px-5 vh-100">
+
+
+                <div class="row gx-5 justify-content-center">
+
+                    <div class="col-lg-8">
+                        <div  th:if="${param.error}" class="error text-warning">
+                            Invalid username and password.
+                        </div>
+                        <div  th:if="${param.logout}" class="error text-info">
+                            You have been logged out.
+                        </div>
+
+                        <!-- Login Form -->
+                        <form th:action="@{/login/authenticate}" method="post">
+
+                            <div class="mb-3">
+                                <label for="username" class="form-label text-white">Username</label>
+                                <input type="text" name="username" class="form-control" id="username"
+                                       aria-describedby="usernamehelp">
+                                <div id="usernamehelp" class="form-text">Enter Username.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label text-white">Password</label>
+                                <input type="password" name="password" class="form-control" id="password">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Footer-->
+        <div th:replace="fragrams/footer :: footer"/>
+
+
+    </body>
+</html>

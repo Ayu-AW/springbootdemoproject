@@ -1,7 +1,9 @@
 package com.instructor.springbootdemoproject;
 
+import com.instructor.springbootdemoproject.data.AuthGroupRepository;
 import com.instructor.springbootdemoproject.data.CourseRepository;
 import com.instructor.springbootdemoproject.data.StudentRepository;
+import com.instructor.springbootdemoproject.models.AuthGroup;
 import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
 import com.instructor.springbootdemoproject.services.CourseService;
@@ -23,24 +25,23 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
 
     StudentService studentService;
     CourseService courseService;
+    AuthGroupRepository authGroupRepository;
 
     CourseRepository courseRepository;
     static final  String PASSWORD = "password";
     static final  String JAFERID = "jafer@gmail.com";
     static final  String KEVINID ="kevin@gmail.com";
     static final  String ROGERID = "roger@gmail.com";
+    static final  String ROLE_ADMIN = "ROLE_ADMIN";
+    static final  String ROLE_USER = "ROLE_USER";
+
     @Autowired
-    public ApplicationCommandLineRunner(StudentService studentService, CourseService courseService, CourseRepository courseRepository) {
+    public ApplicationCommandLineRunner(StudentService studentService, CourseService courseService, AuthGroupRepository authGroupRepository, CourseRepository courseRepository) {
         this.studentService = studentService;
         this.courseService = courseService;
+        this.authGroupRepository = authGroupRepository;
         this.courseRepository = courseRepository;
     }
-
-
-
-
-
-
 
     @PostConstruct
     public void postConstruct(){
@@ -56,6 +57,13 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
         studentService.saveOrUpdate(new Student("nick@gmail.com", "Nick", PASSWORD));
         studentService.saveOrUpdate(new Student("reema@gmail.com", "Reema", PASSWORD));
         studentService.saveOrUpdate(new Student(ROGERID, "roger", PASSWORD));
+
+        authGroupRepository.save(new AuthGroup(JAFERID,ROLE_ADMIN));
+        authGroupRepository.save(new AuthGroup(JAFERID,ROLE_USER));
+        authGroupRepository.save(new AuthGroup("nick@gmail.com","ROLE_ADMIN"));
+        authGroupRepository.save(new AuthGroup(KEVINID,ROLE_USER));
+        authGroupRepository.save(new AuthGroup(ROGERID,ROLE_USER));
+
 
         courseService.saveOrUpdate(new Course("Java","Jafer"));
         courseService.saveOrUpdate(new Course("Springboot","Kasper"));

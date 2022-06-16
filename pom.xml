@@ -17,6 +17,24 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
+
+<!--
+        Step one: add spring security to pom and refresh
+        by default username: user
+                    password: printed UUID in the console
+
+        also add thymeleaf extras for security view control "sec:"
+-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
