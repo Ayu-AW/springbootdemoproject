@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,8 +37,10 @@ public class StudentController {
 
 
     @GetMapping
-    public String getAllStudents(Model model){
+    public String getAllStudents(Model model, Principal principal, @SessionAttribute("currentUser") Student student, HttpSession session){
 
+        log.info("Student Object from session: " + student.toString());
+        log.info("session ID: "+session.getId()+" Value of currentUser: " +session.getAttribute("currentUser").toString());
 
         model.addAttribute("students",studentService.findAll());
 

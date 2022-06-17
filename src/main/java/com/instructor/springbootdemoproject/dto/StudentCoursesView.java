@@ -1,4 +1,4 @@
-package com.instructor.springbootdemoproject.DTO;
+package com.instructor.springbootdemoproject.dto;
 
 
 import lombok.AccessLevel;

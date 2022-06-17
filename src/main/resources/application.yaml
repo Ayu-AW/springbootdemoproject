@@ -31,10 +31,10 @@ logging:
     com.instructor.springbootdemoproject: INFO
     org:
       hibernate:
-        SQL: TRACE
+        SQL: INFO
         type:
           descriptor:
-            sql: TRACE
+            sql: INFO
 management:
   endpoints:
     web:
