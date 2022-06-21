@@ -11,12 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
@@ -69,7 +71,13 @@ public class StudentController {
     }
 
     @PostMapping("/saveupdatestudent")
-    public String saveUpdateStudent(RedirectAttributes model, @ModelAttribute("student") Student student){
+    public String saveUpdateStudent(RedirectAttributes model, @Valid @ModelAttribute("student") Student student, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            log.warn(bindingResult.getAllErrors().toString());
+            return "studentcreateupdate";
+        }
+
+
         log.warn("Model student: "+ student);
         studentService.saveOrUpdate(student);
         model.addFlashAttribute("student",studentService.findByEmail(student.getEmail()));

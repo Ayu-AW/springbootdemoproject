@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -25,9 +27,10 @@ public class Student {
 
     // Fields
 
-    @Id
+    @Id @Email(message = "Must be a valid email")
     String email;
 
+    @NotBlank(message = "Provide full name")
     String name;
 
     @Setter(AccessLevel.NONE)

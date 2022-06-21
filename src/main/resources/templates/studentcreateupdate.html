@@ -23,9 +23,13 @@
                 <form th:action="@{/students/saveupdatestudent}"  autocomplete="off" method="post">
                     <div class="input-group mb-3">
                         <input type="text" name="email" class="form-control" placeholder="Student's Email" th:field="*{student.email}" />
+                        <p class="d-block"><span th:if="${#fields.hasErrors('student.email')}"
+                                 th:errors="*{student.email}" class="error text-warning">Name Error</span></p>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" name="name" class="form-control" placeholder="Student's Name" th:field="*{student.name}" />
+                        <p class="d-block"><span th:if="${#fields.hasErrors('student.name')}"
+                              th:errors="*{student.name}" class="error text-warning">Name Error</span></p>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" name="password" class="form-control" placeholder="Student's Password"
