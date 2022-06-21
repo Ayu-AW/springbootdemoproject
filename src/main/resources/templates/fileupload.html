@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- Head-->
+<div th:replace="fragrams/header :: header"/>
+<body>
+<!-- Responsive navbar-->
+<div th:replace="fragrams/nav :: nav"/>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-5 vh-100">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center my-5">
+                    <h1 class="display-4 fw-bolder text-white mb-2">Student Create/Modify</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-5">
+                <p th:if="${message ne null}" class="text-warning">Persisted!</p>
+                <form th:action="@{/upload}"  autocomplete="off" method="post" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <input type="file" name="file" class="form-control" placeholder="select a file to upload"
+                               aria-label="select a file to upload" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Upload</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</header>
+
+
+<!-- Footer-->
+<div th:replace="fragrams/footer :: footer"/>
+
+
+</body>
+</html>
