@@ -11,7 +11,7 @@
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-8">
                 <div class="text-center my-5">
-                    <h1 class="display-4 fw-bolder text-white mb-2">Student Create/Modify</h1>
+                    <h1 class="display-4 fw-bolder text-white mb-2">File Upload</h1>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
 
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-5">
-                <p th:if="${message ne null}" class="text-warning">Persisted!</p>
+                <p th:if="${message ne null}" th:text="${message}" class="text-warning"></p>
                 <form th:action="@{/upload}"  autocomplete="off" method="post" enctype="multipart/form-data">
                     <div class="input-group mb-3">
                         <input type="file" name="file" class="form-control" placeholder="select a file to upload"

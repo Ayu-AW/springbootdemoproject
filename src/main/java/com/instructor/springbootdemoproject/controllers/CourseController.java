@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+
 @Controller @Slf4j
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping("courses")
@@ -40,7 +42,7 @@ public class CourseController {
     }
 
     @PostMapping("/saveupdatecourse")
-    public String saveUpdateCourse(RedirectAttributes model, @ModelAttribute("course") Course course){
+    public String saveUpdateCourse(RedirectAttributes model, @ModelAttribute("course") Course course, HttpSession session){
         log.warn("Model course: "+ course);
         courseService.saveOrUpdate(course);
         model.addFlashAttribute("course",courseService.findById(course.getId()));
