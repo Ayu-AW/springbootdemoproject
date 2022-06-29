@@ -24,10 +24,10 @@ public class FileInfo {
     @NonNull
     String fileName;
     @NonNull
-    String fileLocation;
-    @NonNull
     String fileType;
     @NonNull
-    String fileSize;
+    long fileSize;
+    @NonNull @Lob
+    byte[] data;
 
 }

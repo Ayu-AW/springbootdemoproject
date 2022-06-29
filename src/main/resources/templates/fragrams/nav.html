@@ -27,6 +27,9 @@
                 <span sec:authorize="hasRole('ROLE_ADMIN')"><li class="nav-item"><a class="nav-link" th:href="@{/students/studentform}">Student Form</a></li></span>
                 <li class="nav-item"><a class="nav-link" th:href="@{/courses}">Courses List</a></li>
                 <span sec:authorize="hasRole('ROLE_ADMIN')"> <li class="nav-item"><a class="nav-link" th:href="@{/courses/courseform}">Course Form</a></li> </span>
+                <li class="nav-item"><a class="nav-link" th:href="@{/uploadfileform}">Upload Form</a></li>
+
+
             </ul>
         </div>
     </div>

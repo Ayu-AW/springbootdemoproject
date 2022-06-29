@@ -2,7 +2,7 @@
     #app.upload.dir=${maven.basedir}/src/main/resources/static/files
 app:
   upload:
-    dir: @project.basedir@/files
+    dir: @project.basedir@/src/main/resources/static/img
 
 spring:
   servlet:
