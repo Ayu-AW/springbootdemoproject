@@ -19,7 +19,8 @@ import javax.persistence.*;
 @Entity
 public class FileInfo {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NonNull
     String fileName;
@@ -27,7 +28,8 @@ public class FileInfo {
     String fileType;
     @NonNull
     long fileSize;
-    @NonNull @Lob
+    @NonNull
+    @Lob
     byte[] data;
 
 }

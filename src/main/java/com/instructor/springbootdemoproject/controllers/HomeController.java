@@ -4,7 +4,6 @@ import com.instructor.springbootdemoproject.services.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -28,7 +27,7 @@ public class HomeController {
     @GetMapping(value = {"/", "index"})
     public String homePage(Principal principal, HttpSession session) {
         try {
-           // HttpSession session = request.getSession(true);
+            // HttpSession session = request.getSession(true);
 
             if (principal != null) {
                 session.setAttribute("currentUser", studentService.findByEmail(principal.getName()));

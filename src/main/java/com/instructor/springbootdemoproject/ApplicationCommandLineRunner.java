@@ -2,7 +2,6 @@ package com.instructor.springbootdemoproject;
 
 import com.instructor.springbootdemoproject.data.AuthGroupRepository;
 import com.instructor.springbootdemoproject.data.CourseRepository;
-import com.instructor.springbootdemoproject.data.StudentRepository;
 import com.instructor.springbootdemoproject.models.AuthGroup;
 import com.instructor.springbootdemoproject.models.Course;
 import com.instructor.springbootdemoproject.models.Student;
@@ -19,8 +18,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.NoSuchElementException;
 
-@Component @Slf4j
-@FieldDefaults(makeFinal = true,level = AccessLevel.PRIVATE)
+@Component
+@Slf4j
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ApplicationCommandLineRunner implements CommandLineRunner {
 
     StudentService studentService;
@@ -28,10 +28,10 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
     AuthGroupRepository authGroupRepository;
 
     CourseRepository courseRepository;
-    static final  String PASSWORD = "password";
-    static final  String JAFERID = "jafer@gmail.com";
-    static final  String KEVINID ="kevin@gmail.com";
-    static final  String ROGERID = "roger@gmail.com";
+    static final String PASSWORD = "password";
+    static final String JAFERID = "jafer@gmail.com";
+    static final String KEVINID = "kevin@gmail.com";
+    static final String ROGERID = "roger@gmail.com";
 
     @Autowired
     public ApplicationCommandLineRunner(StudentService studentService, CourseService courseService, AuthGroupRepository authGroupRepository, CourseRepository courseRepository) {
@@ -42,15 +42,8 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
     }
 
 
-
-
-
-
-
-
-
     @PostConstruct
-    public void postConstruct(){
+    public void postConstruct() {
         log.warn("============ Application CommandLine Runner ============");
     }
 
@@ -70,12 +63,11 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
         authGroupRepository.save(new AuthGroup("nick@gmail.com", "ROLE_ADMIN"));
 
 
-
-        courseService.saveOrUpdate(new Course("Java","Jafer"));
-        courseService.saveOrUpdate(new Course("Springboot","Kasper"));
-        courseService.saveOrUpdate(new Course("SQL","Phillip"));
-        courseService.saveOrUpdate(new Course("AWS","Leon"));
-        courseService.saveOrUpdate(new Course("JUnit","Charlie"));
+        courseService.saveOrUpdate(new Course("Java", "Jafer"));
+        courseService.saveOrUpdate(new Course("Springboot", "Kasper"));
+        courseService.saveOrUpdate(new Course("SQL", "Phillip"));
+        courseService.saveOrUpdate(new Course("AWS", "Leon"));
+        courseService.saveOrUpdate(new Course("JUnit", "Charlie"));
 
         try {
             studentService.addCourse(JAFERID, courseService.findById(1));
@@ -88,10 +80,10 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
             studentService.addCourse(KEVINID, courseService.findById(5));
             studentService.addCourse(ROGERID, courseService.findById(1));
             studentService.addCourse(ROGERID, courseService.findById(2));
-        } catch (NoSuchElementException ex){
+        } catch (NoSuchElementException ex) {
             log.error("Couldn't add course to student!");
             ex.printStackTrace();
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             log.error("Couldn't add courses!");
             e.printStackTrace();
         }

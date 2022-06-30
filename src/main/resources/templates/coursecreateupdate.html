@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <!-- Head-->
 <div th:replace="fragrams/header :: header"/>
 <body>
@@ -20,17 +20,20 @@
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-5">
                 <p th:if="${course.name ne null}" class="text-warning">Persisted!</p>
-                <form th:action="@{/courses/saveupdatecourse}"  autocomplete="off" method="post">
+                <form th:action="@{/courses/saveupdatecourse}" autocomplete="off" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="id" class="form-control" placeholder="Course ID" th:field="*{course.id}" readonly/>
+                        <input type="text" name="id" class="form-control" placeholder="Course ID"
+                               th:field="*{course.id}" readonly/>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control" placeholder="Course Name" th:field="*{course.name}" />
+                        <input type="text" name="name" class="form-control" placeholder="Course Name"
+                               th:field="*{course.name}"/>
                     </div>
 
                     <div class="input-group mb-3">
                         <input type="text" name="instructor" class="form-control" placeholder="Instructor's Name"
-                               aria-label="Instructor's Name" aria-describedby="button-addon2" th:field="*{course.instructor}">
+                               aria-label="Instructor's Name" aria-describedby="button-addon2"
+                               th:field="*{course.instructor}">
                         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Submit</button>
                     </div>
 

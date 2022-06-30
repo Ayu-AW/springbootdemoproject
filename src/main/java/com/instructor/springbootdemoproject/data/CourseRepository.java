@@ -13,11 +13,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Query(nativeQuery = true)
     List<Course> findStudentCourses(String email);
 
-    @Query(value = "select * from course where id  > :id",nativeQuery = true)
+    @Query(value = "select * from course where id  > :id", nativeQuery = true)
     List<Course> findAllCourseGreaterThanId(int id);
 
     Optional<Course> findByName(String name);
-
 
 
 }

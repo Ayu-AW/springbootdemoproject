@@ -1,16 +1,12 @@
 package com.instructor.springbootdemoproject.controllers;
 
-import com.instructor.springbootdemoproject.data.FileInfoRepository;
 import com.instructor.springbootdemoproject.models.FileInfo;
-import com.instructor.springbootdemoproject.models.Student;
 import com.instructor.springbootdemoproject.services.FileInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,16 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller @Slf4j
+@Controller
+@Slf4j
 public class FileController {
     //private final String UPLOAD_DIR = "~/IdeaProjects/springbootdemoproject/files";
 //    @Value("${app.upload.dir:${user.home}}")
@@ -40,31 +32,32 @@ public class FileController {
     public FileController(FileInfoService fileInfoService) {
         this.fileInfoService = fileInfoService;
     }
-// https://codebun.com/spring-boot-upload-and-download-file-example-using-thymeleaf/
+
+    // https://codebun.com/spring-boot-upload-and-download-file-example-using-thymeleaf/
     @GetMapping("/uploadfileform")
-    public String uploadFileForm(Model model){
+    public String uploadFileForm(Model model) {
         List<FileInfo> fileInfos = fileInfoService.getAllFiles();
-        fileInfos = fileInfos.stream().map(f->
+        fileInfos = fileInfos.stream().map(f ->
         {
-            return new FileInfo(f.getId(),f.getFileName(),f.getFileType(),(f.getFileSize()/1024L), f.getData());
+            return new FileInfo(f.getId(), f.getFileName(), f.getFileType(), (f.getFileSize() / 1024L), f.getData());
         }).collect(Collectors.toList());
         model.addAttribute("files", fileInfos);
         return "fileupload";
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes){
+    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 
         //check if file is empty
-        if(file.isEmpty()) {
+        if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload.");
             return "redirect:/uploadfileform";
         }
 
         FileInfo fileInfo = null;
-        try{
-              fileInfo =  fileInfoService.store(file);
-        }catch (IOException ex){
+        try {
+            fileInfo = fileInfoService.store(file);
+        } catch (IOException ex) {
             log.warn("Upload file exception");
             ex.printStackTrace();
         }
@@ -74,17 +67,17 @@ public class FileController {
 
 
     @GetMapping("/downloadfile")
-    public void downloadFile(@Param("id") int id , Model model, HttpServletResponse response) throws IOException {
+    public void downloadFile(@Param("id") int id, Model model, HttpServletResponse response) throws IOException {
         FileInfo fileInfo = fileInfoService.getFile(id);
 
 
-            response.setContentType("application/octet-stream");
-            String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename = "+ fileInfo.getFileName();
-            response.setHeader(headerKey, headerValue);
-            ServletOutputStream outputStream = response.getOutputStream();
-            outputStream.write(fileInfo.getData());
-            outputStream.close();
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename = " + fileInfo.getFileName();
+        response.setHeader(headerKey, headerValue);
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(fileInfo.getData());
+        outputStream.close();
 
     }
 

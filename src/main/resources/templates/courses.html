@@ -1,57 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-    <!-- Head-->
-    <div th:replace="fragrams/header :: header" />
-    <body>
-    <!-- Responsive navbar-->
-    <div th:replace="fragrams/nav :: nav" />
-    <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-5 vh-100">
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="text-center my-5">
-                            <h1 class="display-4 fw-bolder text-white mb-2">Courses</h1>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-10">
-                        <h1 class="text-white">Courses List</h1>
-                        <table class="table table-dark">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Instructor</th>
-                                <th scope="col">Students Names</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="course: ${courses}">
-                                <th scope="row" th:text="${course.id}"></th>
-                                <td th:text="${course.name}"></td>
-                                <td th:text="${course.instructor}"></td>
-                                <td>
-                                    <p class="d-inline" th:each="student: ${course.students}">
-                                        <span th:text="'| ' +${student.email}"></span>
-                                    </p>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<!-- Head-->
+<div th:replace="fragrams/header :: header"/>
+<body>
+<!-- Responsive navbar-->
+<div th:replace="fragrams/nav :: nav"/>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-5 vh-100">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center my-5">
+                    <h1 class="display-4 fw-bolder text-white mb-2">Courses</h1>
                 </div>
             </div>
-        </header>
+        </div>
+
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-10">
+                <h1 class="text-white">Courses List</h1>
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Instructor</th>
+                        <th scope="col">Students Names</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="course: ${courses}">
+                        <th scope="row" th:text="${course.id}"></th>
+                        <td th:text="${course.name}"></td>
+                        <td th:text="${course.instructor}"></td>
+                        <td>
+                            <p class="d-inline" th:each="student: ${course.students}">
+                                <span th:text="'| ' +${student.email}"></span>
+                            </p>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</header>
 
 
-        <!-- Footer-->
-        <div th:replace="fragrams/footer :: footer"/>
+<!-- Footer-->
+<div th:replace="fragrams/footer :: footer"/>
 
 
-    </body>
+</body>
 </html>

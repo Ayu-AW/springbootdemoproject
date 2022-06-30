@@ -27,7 +27,7 @@ public class AppUserPrincipal implements UserDetails {
 
         Set<SimpleGrantedAuthority> authGroupSet = new HashSet<>();
         //authGroup.forEach(auth -> authGroupSet.add(new SimpleGrantedAuthority(auth.getRole())));
-        for (AuthGroup auth: authGroup) {
+        for (AuthGroup auth : authGroup) {
             authGroupSet.add(new SimpleGrantedAuthority(auth.getRole()));
         }
         return authGroupSet;

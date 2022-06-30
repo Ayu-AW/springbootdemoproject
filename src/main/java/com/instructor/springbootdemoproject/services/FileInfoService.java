@@ -23,7 +23,7 @@ public class FileInfoService {
 
     public FileInfo store(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        FileInfo fileInfo = new FileInfo(fileName, file.getContentType(),file.getSize(),file.getBytes());
+        FileInfo fileInfo = new FileInfo(fileName, file.getContentType(), file.getSize(), file.getBytes());
         return fileInfoRepository.save(fileInfo);
     }
 
@@ -32,7 +32,7 @@ public class FileInfoService {
 
     }
 
-    public List<FileInfo> getAllFiles(){
+    public List<FileInfo> getAllFiles() {
         return fileInfoRepository.findAll();
     }
 }

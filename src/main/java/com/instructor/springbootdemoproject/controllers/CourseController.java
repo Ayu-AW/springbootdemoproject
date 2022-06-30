@@ -1,7 +1,6 @@
 package com.instructor.springbootdemoproject.controllers;
 
 import com.instructor.springbootdemoproject.models.Course;
-import com.instructor.springbootdemoproject.models.Student;
 import com.instructor.springbootdemoproject.services.CourseService;
 import com.instructor.springbootdemoproject.services.StudentService;
 import lombok.AccessLevel;
@@ -15,7 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
-@Controller @Slf4j
+@Controller
+@Slf4j
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping("courses")
 public class CourseController {
@@ -35,41 +35,41 @@ public class CourseController {
         return "courses";
     }
 
-    @GetMapping(value="/courseform")
-    public String courseForm(Model model){
-        model.addAttribute("course",new Course());
+    @GetMapping(value = "/courseform")
+    public String courseForm(Model model) {
+        model.addAttribute("course", new Course());
         return "coursecreateupdate";
     }
 
     @PostMapping("/saveupdatecourse")
-    public String saveUpdateCourse(RedirectAttributes model, @ModelAttribute("course") Course course, HttpSession session){
-        log.warn("Model course: "+ course);
+    public String saveUpdateCourse(RedirectAttributes model, @ModelAttribute("course") Course course, HttpSession session) {
+        log.warn("Model course: " + course);
         courseService.saveOrUpdate(course);
-        model.addFlashAttribute("course",courseService.findById(course.getId()));
+        model.addFlashAttribute("course", courseService.findById(course.getId()));
         return "coursecreateupdate";
     }
 
     @PostMapping("{email}/savecoursestouser")
-    public String saveCourseToStudent(@RequestParam("courses-choice") String name, @PathVariable("email") String email, RedirectAttributes model){
-        log.warn("model email: "+ email);
+    public String saveCourseToStudent(@RequestParam("courses-choice") String name, @PathVariable("email") String email, RedirectAttributes model) {
+        log.warn("model email: " + email);
         // check course is on the list
         boolean isCourseNameValid = courseService.findAll().stream().anyMatch(course -> course.getName().equals(name));
-        if(isCourseNameValid){
+        if (isCourseNameValid) {
             try {
                 studentService.addCourse(email, courseService.findCourseByName(name));
-                model.addFlashAttribute("message", String.format("Persist %s to %s", name,email));
-                log.info(String.format("Persist %s to %s", name,email));
-            }catch(RuntimeException ex){
-                model.addFlashAttribute("message", String.format("Couldn't persist %s to %s", name,email));
-                log.error(String.format("Couldn't persist %s to %s", name,email));
+                model.addFlashAttribute("message", String.format("Persist %s to %s", name, email));
+                log.info(String.format("Persist %s to %s", name, email));
+            } catch (RuntimeException ex) {
+                model.addFlashAttribute("message", String.format("Couldn't persist %s to %s", name, email));
+                log.error(String.format("Couldn't persist %s to %s", name, email));
                 ex.printStackTrace();
             }
         } else {
-            model.addFlashAttribute("message", String.format("Couldn't persist %s to %s because course don't exist", name,email));
-            log.warn(String.format("Couldn't persist %s to %s because course doesn't exist", name,email));
+            model.addFlashAttribute("message", String.format("Couldn't persist %s to %s because course don't exist", name, email));
+            log.warn(String.format("Couldn't persist %s to %s because course doesn't exist", name, email));
         }
         log.info("courses-choice:" + name);
-        log.info("isCourseNameValid: "+ isCourseNameValid);
+        log.info("isCourseNameValid: " + isCourseNameValid);
 
         return "redirect:/students";
     }

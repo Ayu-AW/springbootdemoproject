@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -20,7 +19,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Getter @Setter @Slf4j @ToString
+@Getter
+@Setter
+@Slf4j
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "student")
 @Entity
@@ -28,7 +30,8 @@ public class Student {
 
     // Fields
 
-    @Id @Email(message = "Must be a valid email")
+    @Id
+    @Email(message = "Must be a valid email")
     String email;
 
     @NotBlank(message = "Provide full name")
@@ -55,7 +58,7 @@ public class Student {
     }
 
     // Helper Method
-    public void addCourse(Course course){
+    public void addCourse(Course course) {
         courses.add(course);
         course.getStudents().add(this);
     }

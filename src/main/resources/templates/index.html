@@ -1,34 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-    <!--Theme Business Frontpage    -->
-    <!--https://startbootstrap.com/template/business-frontpage-->
-    <!-- Head-->
-    <div th:replace="fragrams/header :: header" />
-    <body>
-    <!-- Responsive navbar-->
-    <div th:replace="fragrams/nav :: nav" />
-    <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-5 vh-100">
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="text-center my-5">
-                            <h1 class="display-4 fw-bolder text-white mb-2">School Management System</h1>
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<!--Theme Business Frontpage    -->
+<!--https://startbootstrap.com/template/business-frontpage-->
+<!-- Head-->
+<div th:replace="fragrams/header :: header"/>
+<body>
+<!-- Responsive navbar-->
+<div th:replace="fragrams/nav :: nav"/>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-5 vh-100">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center my-5">
+                    <h1 class="display-4 fw-bolder text-white mb-2">School Management System</h1>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
 
-                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Student Register</a>
-                                <a class="btn btn-outline-light btn-lg px-4" href="#!">Teacher Register</a>
-                            </div>
-                        </div>
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Student Register</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="#!">Teacher Register</a>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </div>
+</header>
 
 
-        <!-- Footer-->
-        <div th:replace="fragrams/footer :: footer"/>
+<!-- Footer-->
+<div th:replace="fragrams/footer :: footer"/>
 
 
-    </body>
+</body>
 </html>

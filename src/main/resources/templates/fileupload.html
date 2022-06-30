@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <!-- Head-->
 <div th:replace="fragrams/header :: header"/>
 <body>
@@ -20,7 +20,7 @@
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-5">
                 <p th:if="${message ne null}" th:text="${message}" class="text-warning"></p>
-                <form th:action="@{/upload}"  autocomplete="off" method="post" enctype="multipart/form-data">
+                <form th:action="@{/upload}" autocomplete="off" method="post" enctype="multipart/form-data">
                     <div class="input-group mb-3">
                         <input type="file" name="file" class="form-control" placeholder="select a file to upload"
                                aria-label="select a file to upload" aria-describedby="button-addon2">
@@ -36,22 +36,23 @@
         <div class="row gx-5 justify-content-center">
 
             <th:block th:each="fileList: ${files}">
-                <div class="col-sm-6" >
+                <div class="col-sm-6">
                     <div class="card bg-dark ">
                         <div class="card-body mx-auto">
                             <h5 class="card-title text-white mx-auto" th:text="${fileList.fileName}"></h5>
-                            <p class="card-text text-white mx-auto" th:text="|File Size: ${fileList.fileSize} & File Type: ${fileList.fileType}|"></p>
-                            <div class="mx-auto"><img class="img-thumbnail rounded" width="200px" height="200px" th:src="@{'/image?id=' + ${fileList.id}}" /></div>
-                            <div class="my-1"><a  th:href="@{'/downloadfile?id=' + ${fileList.id}}" class="btn btn-primary mx-auto">Download</a></div>
+                            <p class="card-text text-white mx-auto"
+                               th:text="|File Size: ${fileList.fileSize} & File Type: ${fileList.fileType}|"></p>
+                            <div class="mx-auto"><img class="img-thumbnail rounded" width="200px" height="200px"
+                                                      th:src="@{'/image?id=' + ${fileList.id}}"/></div>
+                            <div class="my-1"><a th:href="@{'/downloadfile?id=' + ${fileList.id}}"
+                                                 class="btn btn-primary mx-auto">Download</a></div>
                         </div>
                     </div>
                 </div>
             </th:block>
 
 
-
         </div>
-
 
 
     </div>

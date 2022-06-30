@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <!-- Head-->
 <div th:replace="fragrams/header :: header"/>
 <body>
@@ -20,20 +20,25 @@
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-5">
                 <p th:if="${student.email ne null}" class="text-warning">Persisted!</p>
-                <form th:action="@{/students/saveupdatestudent}"  autocomplete="off" method="post">
+                <form th:action="@{/students/saveupdatestudent}" autocomplete="off" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="email" class="form-control" placeholder="Student's Email" th:field="*{student.email}" />
+                        <input type="text" name="email" class="form-control" placeholder="Student's Email"
+                               th:field="*{student.email}"/>
                         <p class="d-block"><span th:if="${#fields.hasErrors('student.email')}"
-                                 th:errors="*{student.email}" class="error text-warning">Name Error</span></p>
+                                                 th:errors="*{student.email}"
+                                                 class="error text-warning">Name Error</span></p>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control" placeholder="Student's Name" th:field="*{student.name}" />
+                        <input type="text" name="name" class="form-control" placeholder="Student's Name"
+                               th:field="*{student.name}"/>
                         <p class="d-block"><span th:if="${#fields.hasErrors('student.name')}"
-                              th:errors="*{student.name}" class="error text-warning">Name Error</span></p>
+                                                 th:errors="*{student.name}"
+                                                 class="error text-warning">Name Error</span></p>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" name="password" class="form-control" placeholder="Student's Password"
-                               aria-label="Student's Password" aria-describedby="button-addon2" th:field="*{student.password}">
+                               aria-label="Student's Password" aria-describedby="button-addon2"
+                               th:field="*{student.password}">
                         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Submit</button>
                     </div>
 

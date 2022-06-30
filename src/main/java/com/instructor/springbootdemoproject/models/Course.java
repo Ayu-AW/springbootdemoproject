@@ -4,6 +4,7 @@ package com.instructor.springbootdemoproject.models;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;

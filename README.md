@@ -1,7 +1,9 @@
 # Springboot Application Example
+
 ## School Management System
 
 ### Technologies
+
 - Springboot
 - Maven
 - Java corretto 11
@@ -10,14 +12,15 @@
 - Spring Security
 - Thymeleaf
 
-
 ### Business Requirement:
 
-Your task is to create a basic School Management System where students can register for courses, and view the course assigned to them.
+Your task is to create a basic School Management System where students can register for courses, and view the course
+assigned to them.
 
 ### Work-Flow:
 
 Website with links to each service
+
 - homepage
 - create/modify student
 - create/modify course
@@ -26,17 +29,19 @@ Website with links to each service
 - view courses
 
 starter dependencies:
+
 - Spring web
 - Spring Boot DevTools
 - Lombok
 - Thymeleaf
-- Mariadb Driver 
+- Mariadb Driver
 - Spring Data JPA
-- Validation 
-
+- Validation
 
 #### Requirement 1 - Models:
+
 Models requires:
+
 - no args constructor
 - all args constructor
 - required args constructor
@@ -44,7 +49,9 @@ Models requires:
 - toString (exclude collections to avoid infinite loops)
 - override equals and hashcode methods (don't use lombok here)
 - helper methods
+
 ##### Student (`@Table(name = "student")`):
+
 | Field    | Datatype      | Description                 | Database attributes `@Column()`                                                                                                                                                                       | 
 |----------|---------------|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | email    | String        | Student’s unique identifier | Primary key, 50 character limit, name `email`                                                                                                                                                         |
@@ -62,31 +69,41 @@ Models requires:
 | students   | List\<Student> | Course learners list     | fetch type `eager`, cascade all except remove, mappedBy `courses` | 
 
 ---
+
 #### Requirement 2 - Data Access Object  (dao) interfaces:
 
 ##### StudentRepository:
+
 ##### CourseRepository:
+
 | Abstract method         | Return type   | Parameters                    | Description                                                                                                     | 
 |-------------------------|---------------|-------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | findStudentCourses      | List\<Course> | String email                  | return student courses                                                                                          |
 
 ---
 
-
 #### Requirement 3 - Service layer:
+
 implement interfaces:
+
 - StudentService: implement StudentRepository required methods.
 - CourseService: implement CourseRepository required methods.
 
 ---
 
 #### Requirement 4 - Controllers
+
 ##### HomeController
-  - general endpoints
+
+- general endpoints
+
 ##### StudentController
-  - mapping for services
+
+- mapping for services
+
 ##### CourseController
-  - mapping for services
+
+- mapping for services
 
 ---
 
@@ -95,9 +112,11 @@ implement interfaces:
 - build a template using thymeleaf fragments
 
 #### Requirement 6 - Spring Security
+
 - implement spring security
 - hide/show services using thymeleaf
 
 #### Requirement 7 - Testing
+
 - use mock database H2 to test data
 - AssertJ tests

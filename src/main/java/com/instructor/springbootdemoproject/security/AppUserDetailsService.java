@@ -12,14 +12,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Service @Slf4j
+@Service
+@Slf4j
 public class AppUserDetailsService implements UserDetailsService {
 
     AuthGroupRepository authGroupRepository;
     StudentService studentService;
+
     @Autowired
     public AppUserDetailsService(AuthGroupRepository authGroupRepository, StudentService studentService) {
         this.authGroupRepository = authGroupRepository;
@@ -32,6 +33,6 @@ public class AppUserDetailsService implements UserDetailsService {
         List<AuthGroup> authGroupList = authGroupRepository.findByaEmail(username);
         Student s = studentService.findByEmail(username);
 
-        return new AppUserPrincipal(s,authGroupList);
+        return new AppUserPrincipal(s, authGroupList);
     }
 }
